@@ -3,9 +3,9 @@ import { IoIosSearch } from "react-icons/io";
 import { IoMdPerson } from "react-icons/io";
 import { CiBellOn } from "react-icons/ci";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
-import { Barchart } from "../../components/Chats";
+import { Barchart } from "../../components/Charts";
 import Table from "../../components/DashboardTable";
-import data from '../../assets/data.json'
+import data from "../../assets/data.json";
 
 const Dashboard = () => {
   return (

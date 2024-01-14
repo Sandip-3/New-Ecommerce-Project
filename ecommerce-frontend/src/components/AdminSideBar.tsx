@@ -69,7 +69,7 @@ const AdminSideBar = () => {
         <ul>
           <li className="flex items-center gap-4 text-start ml-8 hover:text-blue-600 hover:text-blue-600">
             <MdPieChart size={25} />
-            <Link to={"/admin/dashboard"}>
+            <Link to={"/admin/piechart"}>
               <h5 className="text-2xl font-thin">Pie Chart</h5>
             </Link>
           </li>
@@ -79,7 +79,7 @@ const AdminSideBar = () => {
         <ul>
           <li className="flex items-center gap-4 text-start ml-8 hover:text-blue-600">
             <FaChartLine size={25} />
-            <Link to={"/admin/products"}>
+            <Link to={"/admin/linechart"}>
               <h5 className="text-2xl font-thin">Line Chart</h5>
             </Link>
           </li>
@@ -89,7 +89,7 @@ const AdminSideBar = () => {
         <ul>
           <li className="flex items-center gap-4 text-start ml-8 hover:text-blue-600">
             <FaChartBar size={25} />
-            <Link to={"/admin/products"}>
+            <Link to={"/admin/barchart"}>
               <h5 className="text-2xl font-thin">Bar Chart</h5>
             </Link>
           </li>
@@ -100,4 +100,3 @@ const AdminSideBar = () => {
 };
 
 export default AdminSideBar;
-
