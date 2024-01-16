@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Loading from "./components/Loading";
+import Header from "./components/Header";
 const Dashboard = lazy(() => import("./pages/Admin/Dashboard"));
 const Transaction = lazy(() => import("./pages/Admin/Transaction"));
 const Customers = lazy(() => import("./pages/Admin/Customers"));
@@ -15,9 +16,16 @@ const Barchart = lazy(() => import("./pages/Admin/Barcharts"));
 const Linechart = lazy(() => import("./pages/Admin/Linechart"));
 const Piechart = lazy(() => import("./pages/Admin/Piechart"));
 
+const user = {
+  name: "Sandy",
+  email: "sandy@gmail.com",
+  address: "Sankhamul",
+};
+
 const App = () => {
   return (
     <>
+      <Header user={user} />
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/admin/dashboard" element={<Dashboard />} />

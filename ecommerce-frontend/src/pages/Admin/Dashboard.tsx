@@ -13,7 +13,7 @@ const Dashboard = () => {
       <main className="grid grid-cols-5 gap-2 m-xy-2 h-screen">
         <AdminSideBar />
 
-        <div className="col-span-4 overflow-y-auto flex flex-col mt-2  ">
+        <div className="col-span-4 overflow-y-auto scroll-p-0 flex flex-col mt-2  ">
           <nav className="flex gap-2 mr-6 items-center mb-8">
             <IoIosSearch size={25} />
             <input
@@ -73,7 +73,7 @@ const Dashboard = () => {
               <h1 className="text-2xl font-extralight text-center">
                 Inventory
               </h1>
-              <div className="md:h-[424px] overflow-y-auto scroll ">
+              <div className="md:h-[424px] overflow-y-auto  ">
                 <ProgressMenu
                   number={20}
                   color="rgb(26, 41, 125)"
