@@ -20,6 +20,7 @@ const user = {
   name: "Sandy",
   email: "sandy@gmail.com",
   address: "Sankhamul",
+  isAdmin : false,
 };
 
 const App = () => {

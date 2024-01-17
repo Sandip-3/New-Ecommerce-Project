@@ -4,7 +4,7 @@ import HomeProduct from "./HomeProduct";
 const Home = () => {
   return (
     <>
-      <div className="flex flex-col container mx-auto  mt-8 mb-8">
+      <div className="container mx-auto  mt-6 mb-8 ">
         <img
           className="w-full h-[35vh] object-cover rounded-md"
           src="/images/image.avif"
@@ -18,11 +18,36 @@ const Home = () => {
             See more
           </Link>
         </div>
-        <div className="grid grid-cols-4 gap-4 ">
-          <HomeProduct name="Laptop" price={900} image="/images/laptop.jpg" />
-          <HomeProduct name="Mobile" price={400} image="/images/mobile.jpeg" />
-          <HomeProduct name="Camera" price={200} image="/images/canon.webp" />
-          <HomeProduct name="PlayStation" price={1000} image="/images/ps5.jpg" />
+        <div className="grid grid-cols-4 gap-4 overflow-y-auto">
+          <HomeProduct
+            name="Laptop"
+            price={900}
+            image="/images/laptop.jpg"
+            _id="asdf"
+            stock={10}
+          />
+          <HomeProduct
+            name="Mobile"
+            price={400}
+            image="/images/mobile.jpeg"
+            _id="asdfghi"
+            stock={10}
+          />
+          <HomeProduct
+            name="Camera"
+            price={200}
+            image="/images/canon.webp"
+            _id="asdfgh"
+            stock={10}
+          />
+          <HomeProduct
+            name="PlayStation"
+            price={1000}
+            image="/images/ps5.jpg"
+            _id="asdfg"
+            stock={10}
+          />
+          
         </div>
       </div>
     </>

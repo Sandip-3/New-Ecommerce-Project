@@ -8,7 +8,7 @@ const Products = () => {
     <>
       <main className="grid grid-cols-5 gap-2 m-xy-2 h-screen">
         <AdminSideBar />
-        <div className="col-span-4 mt-8 mx-8 overflow-y-auto">
+        <div className="col-span-4 mt-8 mx-8 overflow-y-auto no-scrollbar">
           <div className="flex justify-between items-center">
             <h2 className="uppercase">Products</h2>
             <Link to={"/admin/product/new"} className="text-green-400">

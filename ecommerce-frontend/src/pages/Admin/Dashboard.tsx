@@ -73,7 +73,7 @@ const Dashboard = () => {
               <h1 className="text-2xl font-extralight text-center">
                 Inventory
               </h1>
-              <div className="md:h-[424px] overflow-y-auto  ">
+              <div className="md:h-[424px] overflow-y-auto  no-scrollbar">
                 <ProgressMenu
                   number={20}
                   color="rgb(26, 41, 125)"

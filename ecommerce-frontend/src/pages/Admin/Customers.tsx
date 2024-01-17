@@ -7,7 +7,7 @@ const Customers = () => {
     <>
       <main className="grid grid-cols-5 gap-2 m-xy-2 h-screen">
         <AdminSideBar />
-        <div className="col-span-4 mt-8 mx-8 overflow-y-auto">
+        <div className="col-span-4 mt-8 mx-8 overflow-y-auto no-csrollbar">
           <div className="flex justify-between items-center">
             <h2 className="uppercase">Customers</h2>
           </div>
