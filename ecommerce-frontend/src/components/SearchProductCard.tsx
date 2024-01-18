@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-type HomeProp = {
+type SearchProp = {
   name: string;
   price: number;
   image: string;
@@ -10,11 +10,11 @@ type HomeProp = {
   stock: number;
 };
 
-const HomeProduct = ({ name, price, image }: HomeProp) => {
+const SearchProductCard = ({ name, price, image }: SearchProp) => {
   return (
     <>
       <div className=" container px-4 mt-4 mx-auto ">
-        <div className="relative w-full flex flex-col space-y-2 shadow-sm rounded-sm overflow-hidden">
+        <div className="relative w-full flex flex-col space-y-1 shadow-sm rounded-sm overflow-hidden">
           <div
             className="absolute rounded-sm mt-2   text-green-400
             inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-300 bg-gray-900 bg-opacity-50  "
@@ -25,7 +25,7 @@ const HomeProduct = ({ name, price, image }: HomeProp) => {
           </div>
           <div className="hover:scale-105">
             <img
-              className="w-full h-[30vh] object-cover rounded-sm  "
+              className="w-full h-[25vh] rounded-sm object-fill"
               src={image}
               alt="productImage"
             />
@@ -39,4 +39,4 @@ const HomeProduct = ({ name, price, image }: HomeProp) => {
   );
 };
 
-export default HomeProduct;
+export default SearchProductCard

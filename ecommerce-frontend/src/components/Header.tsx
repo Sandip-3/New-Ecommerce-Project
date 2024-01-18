@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { IoIosSearch, IoMdLogIn, IoMdLogOut } from "react-icons/io";
 import { FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -21,7 +21,10 @@ const Header = ({ user }: UserInfo) => {
       <div className="container flex justify-end py-4 items-center mx-auto space-x-8 ">
         <div className="flex items-center space-x-4  ">
           {user.isAdmin ? (
-            <Link to={"/admin/dashboard"} className="uppercase hover:text-blue-500">
+            <Link
+              to={"/admin/dashboard"}
+              className="uppercase hover:text-blue-500"
+            >
               Dashboard
             </Link>
           ) : (
@@ -29,20 +32,21 @@ const Header = ({ user }: UserInfo) => {
               Home
             </Link>
           )}
-          {showSearch ? (
-            <input
-              className="border-b-2 outline-none focus:border-blue-500 border-black width-full"
-              type="text"
-              placeholder="Search"
+          {showSearch
+            ? ""
+            : // <input
+              //   className="border-b-2 outline-none focus:border-blue-500 border-black width-full"
+              //   type="text"
+              //   placeholder="Search"
+              // />
+              ""}
+          <Link to={"/search"}>
+            <IoIosSearch
+              className="cursor-pointer"
+              onClick={() => setShowSearch((prev) => !prev)}
+              size={30}
             />
-          ) : (
-            ""
-          )}
-          <IoIosSearch
-            className="cursor-pointer"
-            onClick={() => setShowSearch((prev) => !prev)}
-            size={30}
-          />
+          </Link>
         </div>
         <div className="flex items-center space-x-4">
           {user?.name ? "" : <IoMdLogIn className="cursor-pointer" size={25} />}

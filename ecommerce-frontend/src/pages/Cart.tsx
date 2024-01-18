@@ -1,15 +1,32 @@
 import CartItem from "../components/CartItem";
 
 const Cart = () => {
+  const cartItems = [
+    {
+      photo: "/images/camera.jpg",
+      name: "Camera",
+      price: 200,
+      id: "abcd",
+    },
+    {
+      photo: "/images/laptop.jpg",
+      name: "Laptop",
+      price: 900,
+      id: "abcde",
+    },
+    {
+      photo: "/images/mobile.jpeg",
+      name: "Mobile",
+      price: 999,
+      id: "abcdef",
+    },
+  ];
   return (
     <div className="container mx-auto grid grid-cols-4 mt-12 gap-6 h-[85vh] scroll-p-0">
       <div className="col-span-3 overflow-y-auto no-scrollbar">
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
+        {cartItems.map((item) => (
+          <CartItem key={item.id} name={item.name} photo={item.photo} price={item.price} />
+        ))}
       </div>
 
       <div className="container mt-12 mx-auto shadow-sm col-span-1 max-h-[85vh] ">
@@ -17,7 +34,7 @@ const Cart = () => {
           Cart Details
         </h1>
         <div className="flex flex-col mx-12 mt-8 space-y-2">
-          <p className="font-light text-lg">Product Name : Camera </p>
+          {/* <p className="font-light text-lg">Product Name : Camera </p> */}
           <p className="font-light text-lg">Product Price : $500 </p>
           <p className="font-light text-lg">Shipping Charge : $100 </p>
           <p className="font-light text-lg">Tax : 13%</p>
