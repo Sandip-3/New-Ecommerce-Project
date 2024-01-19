@@ -15,12 +15,13 @@ const TransactionManage = lazy(() => import("./pages/Admin/TransactionManage"));
 const Barchart = lazy(() => import("./pages/Admin/Barcharts"));
 const Linechart = lazy(() => import("./pages/Admin/Linechart"));
 const Piechart = lazy(() => import("./pages/Admin/Piechart"));
+const Login = lazy(() => import("./pages/Login"));
 
 const user = {
-  name: "Sandy",
+  name: "",
   email: "sandy@gmail.com",
   address: "Sankhamul",
-  isAdmin : false,
+  isAdmin: false,
 };
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Suspense>
     </>

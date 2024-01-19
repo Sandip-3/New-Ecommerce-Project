@@ -49,7 +49,13 @@ const Header = ({ user }: UserInfo) => {
           </Link>
         </div>
         <div className="flex items-center space-x-4">
-          {user?.name ? "" : <IoMdLogIn className="cursor-pointer" size={25} />}
+          {user?.name ? (
+            ""
+          ) : (
+            <Link to={"/login"}>
+              <IoMdLogIn className="cursor-pointer" size={25} />{" "}
+            </Link>
+          )}
           <Link to={"/cart"}>
             {" "}
             <MdShoppingCart className="cursor-pointer" size={30} />{" "}

@@ -7,7 +7,7 @@ const Piechart = () => {
     <>
       <main className="grid grid-cols-5 gap-2 m-xy-2 h-screen">
         <AdminSideBar />
-        <div className="col-span-4 mt-8 mx-8 overflow-y-auto">
+        <div className="col-span-4 mt-8 mx-8 overflow-y-auto no-scrollbar">
           <div className=" ">
             <h2 className="uppercase">Piechart</h2>
           </div>

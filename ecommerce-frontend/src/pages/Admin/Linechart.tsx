@@ -8,7 +8,7 @@ const Linechart = () => {
     <>
       <main className="grid grid-cols-5 gap-2 m-xy-2 h-screen">
         <AdminSideBar />
-        <div className="col-span-4 mt-8 mx-8 overflow-y-auto mb-4">
+        <div className="col-span-4 mt-8 mx-8 overflow-y-auto mb-4 no-scrollbar">
           <div className="flex items-center">
             <h2 className="uppercase">Linechart</h2>
           </div>
