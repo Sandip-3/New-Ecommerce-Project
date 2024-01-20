@@ -30,24 +30,30 @@ const App = () => {
       <Header user={user} />
       <Suspense fallback={<Loading />}>
         <Routes>
-          <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/customers" element={<Customers />} />
-          <Route path="/admin/products" element={<Products />} />
-          <Route path="/admin/transaction" element={<Transaction />} />
-          <Route path="/admin/product/new" element={<Product />} />
-          <Route path="/admin/product/:id" element={<ManageProduct />} />
-          <Route
-            path="/admin/transaction/:id"
-            element={<TransactionManage />}
-          />
-          <Route path="/admin/barchart" element={<Barchart />} />
-          <Route path="/admin/linechart" element={<Linechart />} />
-          <Route path="/admin/piechart" element={<Piechart />} />
-
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/search" element={<Search />} />
+          {/* Not Logged In Route */}
           <Route path="/login" element={<Login />} />
+          {/* Login User Route */}
+          {/* Shipping , Orders ,Order Details */}
+
+          {/* Admin Routes */}
+          <Route>
+            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/admin/customers" element={<Customers />} />
+            <Route path="/admin/products" element={<Products />} />
+            <Route path="/admin/transaction" element={<Transaction />} />
+            <Route path="/admin/product/new" element={<Product />} />
+            <Route path="/admin/product/:id" element={<ManageProduct />} />
+            <Route
+              path="/admin/transaction/:id"
+              element={<TransactionManage />}
+            />
+            <Route path="/admin/barchart" element={<Barchart />} />
+            <Route path="/admin/linechart" element={<Linechart />} />
+            <Route path="/admin/piechart" element={<Piechart />} />
+          </Route>
         </Routes>
       </Suspense>
     </>
