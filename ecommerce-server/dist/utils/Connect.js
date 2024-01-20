@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const connectDB = async () => {
     try {
-        const conn = await mongoose_1.default.connect("mongodb+srv://admin:admin123@ecommerce.y9g2bnz.mongodb.net/Mern-Ecom");
+        const conn = await mongoose_1.default.connect(process.env.MONGO_URL);
         console.log(`Connected to Database ${conn.connection.host}`);
     }
     catch (err) {
