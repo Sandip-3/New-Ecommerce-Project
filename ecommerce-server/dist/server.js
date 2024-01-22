@@ -15,5 +15,5 @@ app.use("/user", require("./routes/userRoute"));
 app.use(errorMiddleware);
 const PORT = 8080;
 app.listen(PORT, () => {
-    console.log(`Server Running in http://localhost:${PORT}`);
+  console.log(`Server Running in http://localhost:${PORT}`);
 });

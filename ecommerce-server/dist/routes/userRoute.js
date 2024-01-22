@@ -1,8 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
-const { getUser, createUser } = require("../controllers/userController");
+const { getAllUser, createUser, getUser, deleteUser, } = require("../controllers/userController");
+const isAdmin = require("../middlewares/authMiddleware");
 const route = express.Router();
-route.get("/", getUser);
+route.get("/all", isAdmin, getAllUser);
 route.post("/register", createUser);
+route.get("/:id", getUser);
+route.delete("/:id", isAdmin, deleteUser);
 module.exports = route;
