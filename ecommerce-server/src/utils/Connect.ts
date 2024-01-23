@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(
-      process.env.MONGO_URL
+      "mongodb+srv://admin:admin123@ecommerce.y9g2bnz.mongodb.net/Mern-Ecom"
     );
     console.log(`Connected to Database ${conn.connection.host}`);
   } catch (err) {

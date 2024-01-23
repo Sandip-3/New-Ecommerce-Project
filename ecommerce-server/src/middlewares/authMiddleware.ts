@@ -11,7 +11,6 @@ const isAdmin = asyncHandler(
     if (!user) return next(new ErrorHandler("Unauthorized Access", 401));
     if (user.role !== "admin")
       return next(new ErrorHandler("Not authorized User", 401));
-
     next();
   }
 );

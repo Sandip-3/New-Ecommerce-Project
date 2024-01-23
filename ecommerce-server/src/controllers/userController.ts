@@ -1,7 +1,7 @@
 import { NewUserRequestBody } from "./../types/type";
 import { User } from "../models/uerModel";
 import express, { NextFunction, Request, Response, response } from "express";
-import { Jwt as jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/utilityClass";
 import { error } from "console";
 const asyncHandler = require("express-async-handler");
@@ -44,7 +44,14 @@ const createUser = asyncHandler(
       });
       return res.status(201).json({
         success: true,
-        user: user,
+        user: {
+          name: name,
+          email: email,
+          id: _id,
+          token: generateToken(user._id),
+          dob: dob,
+          role: role,
+        },
       });
     } catch (error) {
       next(error);
@@ -52,9 +59,9 @@ const createUser = asyncHandler(
   }
 );
 
-// const generateJsonWebToken = (id) => {
-//   return jwt.sign();
-// };
+const generateToken = (id: string) => {
+  return jwt.sign({ id }, process.env.JSON_SECRET, { expiresIn: "30d" });
+};
 
 const getUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -64,7 +71,11 @@ const getUser = asyncHandler(
       if (user) {
         return res.status(201).json({
           success: true,
-          user: user,
+          user: {
+            name: user.name,
+            email: user.email,
+            token: generateToken(user._id),
+          },
         });
       } else {
         next(new ErrorHandler("No user Found", 404));

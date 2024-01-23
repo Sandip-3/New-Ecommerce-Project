@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const uerModel_1 = require("../models/uerModel");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const utilityClass_1 = __importDefault(require("../utils/utilityClass"));
 const console_1 = require("console");
 const asyncHandler = require("express-async-handler");
@@ -36,16 +37,23 @@ const createUser = asyncHandler(async (req, res, next) => {
         });
         return res.status(201).json({
             success: true,
-            user: user,
+            user: {
+                name: name,
+                email: email,
+                id: _id,
+                token: generateToken(user._id),
+                dob: dob,
+                role: role,
+            },
         });
     }
     catch (error) {
         next(error);
     }
 });
-// const generateJsonWebToken = (id) => {
-//   return jwt.sign();
-// };
+const generateToken = (id) => {
+    return jsonwebtoken_1.default.sign({ id }, process.env.JSON_SECRET, { expiresIn: "30d" });
+};
 const getUser = asyncHandler(async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -53,7 +61,11 @@ const getUser = asyncHandler(async (req, res, next) => {
         if (user) {
             return res.status(201).json({
                 success: true,
-                user: user,
+                user: {
+                    name: user.name,
+                    email: user.email,
+                    token: generateToken(user._id),
+                },
             });
         }
         else {
