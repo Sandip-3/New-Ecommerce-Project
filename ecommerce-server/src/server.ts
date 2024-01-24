@@ -3,12 +3,15 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connect = require("./utils/Connect");
 const errorMiddleware = require("./middlewares/errorMiddleware");
+import NodeCache from "node-cache";
 
 dotenv.config();
 
 const app = express();
 
 connect();
+
+export const myCache = new NodeCache();
 
 app.use(cors());
 app.use(express.json());

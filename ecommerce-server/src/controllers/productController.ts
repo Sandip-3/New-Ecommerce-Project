@@ -1,4 +1,5 @@
-import { NewProductRequestBody } from "./../types/type";
+import { myCache } from './../server';
+import { BaseQuery, NewProductRequestBody, SearchData } from "./../types/type";
 import { NextFunction, Request, Response } from "express";
 import { Product } from "./../models/productModel";
 import ErrorHandler from "../utils/utilityClass";
@@ -12,6 +13,58 @@ const getProduct = asyncHandler(
       res.status(201).json({
         success: true,
         allProducts,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+const searchAllProduct = asyncHandler(
+  async (
+    req: Request<{}, {}, {}, SearchData>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { search, price, category, sort } = req.query;
+      const page = Number(req.query.page) || 1;
+      const limit = Number(process.env.PRODUCT_PER_PAGE) || 8;
+      const skip = (page - 1) * limit;
+
+      const baseQuery: BaseQuery = {};
+
+      if (search) {
+        baseQuery.name = {
+          $regex: search,
+          $options: "i",
+        };
+      }
+
+      if (price) {
+        baseQuery.price = {
+          $lte: Number(price),
+        };
+      }
+      if (category) {
+        baseQuery.category = category;
+      }
+
+      const searchProduct = Product.find(baseQuery)
+        .sort(sort && { price: sort === "asc" ? 1 : -1 })
+        .limit(limit)
+        .skip(skip);
+
+      const [searchedProduct, filterProducts] = await Promise.all([
+        searchProduct,
+        Product.find(baseQuery),
+      ]);
+
+      const totalPage = Math.ceil(filterProducts.length / 8);
+      res.status(201).json({
+        success: true,
+        searchedProduct,
+        totalPage,
       });
     } catch (error) {
       next(error);
@@ -55,9 +108,13 @@ const createProduct = asyncHandler(
 const latestProducts = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const latestProduct = await Product.find({})
-        .sort({ createdAt: -1 })
-        .limit(5);
+      let latestProduct;
+      if (myCache.has("latest-product")) {
+        latestProduct = JSON.parse(myCache.get("latest-product")!);
+      } else {
+        latestProduct = await Product.find({}).sort({ createdAt: -1 }).limit(5);
+        myCache.set("latest-product", JSON.stringify(latestProduct));
+      }
       return res.status(200).json({
         success: true,
         latestProduct,
@@ -159,4 +216,5 @@ module.exports = {
   singleProduct,
   updateProduct,
   deleteProduct,
+  searchAllProduct,
 };

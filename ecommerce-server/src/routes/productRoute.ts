@@ -10,6 +10,7 @@ const {
   singleProduct,
   updateProduct,
   deleteProduct,
+  searchAllProduct,
 } = require("../controllers/productController");
 
 const route = express.Router();
@@ -18,6 +19,7 @@ route.get("/allproduct", isAdmin, getProduct);
 route.post("/create-product", isAdmin, singleUpload, createProduct);
 route.get("/latest", latestProducts);
 route.get("/category", productCategories);
+route.get('/all' , searchAllProduct)
 route
   .route("/:id")
   .get(singleProduct)

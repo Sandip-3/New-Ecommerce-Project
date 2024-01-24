@@ -5,6 +5,7 @@ declare global {
       NODE_ENV?: "development" | "production";
       PORT?: string;
       JSON_SECRET: string;
+      PRODUCT_PER_PAGE?: string;
     }
   }
 }
