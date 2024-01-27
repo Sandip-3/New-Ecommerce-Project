@@ -16,7 +16,7 @@ const {
 const route = express.Router();
 
 route.get("/allproduct", isAdmin, getProduct);
-route.post("/create-product", isAdmin, singleUpload, createProduct);
+route.post("/createproduct", isAdmin, singleUpload, createProduct);
 route.get("/latest", latestProducts);
 route.get("/category", productCategories);
 route.get('/all' , searchAllProduct)

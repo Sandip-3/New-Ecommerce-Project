@@ -10,7 +10,9 @@ const cors = require("cors");
 const connect = require("./utils/Connect");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 const node_cache_1 = __importDefault(require("node-cache"));
-dotenv.config();
+dotenv.config({
+    path: "./.env",
+});
 const app = express();
 connect();
 exports.myCache = new node_cache_1.default();
@@ -19,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/user", require("./routes/userRoute"));
 app.use("/product", require("./routes/productRoute"));
+app.use("/order", require("./routes/orderRoute"));
 app.use("/src/uploads", express.static("src/uploads"));
 app.use(errorMiddleware);
 const PORT = 8080;

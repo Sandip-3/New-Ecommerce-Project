@@ -11,11 +11,11 @@ const getProduct = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       let allProducts;
-      if (myCache.has("all-product")) {
-        allProducts = JSON.parse(myCache.get("all-product")!);
+      if (myCache.has("products")) {
+        allProducts = JSON.parse(myCache.get("products") as string);
       } else {
         allProducts = await Product.find({});
-        myCache.set("all-product", JSON.stringify(allProducts));
+        myCache.set("products", JSON.stringify(allProducts));
       }
       res.status(201).json({
         success: true,
@@ -120,6 +120,7 @@ const latestProducts = asyncHandler(
       if (myCache.has("latest-product")) {
         latestProduct = JSON.parse(myCache.get("latest-product")!);
       } else {
+        latestProduct = await Product.find({}).sort({ createdAt: -1 }).limit(5);
         myCache.set("latest-product", JSON.stringify(latestProduct));
       }
       return res.status(200).json({
@@ -196,7 +197,7 @@ const updateProduct = asyncHandler(
       if (category) product.category = category;
 
       await product.save();
-      await invalidateCache({ product: true });
+      await invalidateCache({ product: true, productId: String(product._id) });
       return res.status(200).json({
         success: true,
         product,
@@ -220,7 +221,8 @@ const deleteProduct = asyncHandler(
         });
       }
       await product?.deleteOne();
-      await invalidateCache({ product: true });
+      await invalidateCache({ product: true, productId: String(product._id) });
+
       return res.status(200).json({
         success: true,
         message: "Deleted Product Success",

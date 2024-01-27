@@ -5,7 +5,9 @@ const connect = require("./utils/Connect");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 import NodeCache from "node-cache";
 
-dotenv.config();
+dotenv.config({
+  path: "./.env",
+});
 
 const app = express();
 
@@ -19,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/user", require("./routes/userRoute"));
 app.use("/product", require("./routes/productRoute"));
+app.use("/order", require("./routes/orderRoute"));
 
 app.use("/src/uploads", express.static("src/uploads"));
 
