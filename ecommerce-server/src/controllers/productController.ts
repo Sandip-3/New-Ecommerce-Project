@@ -1,15 +1,22 @@
-import { myCache } from './../server';
+import { myCache } from "./../server";
 import { BaseQuery, NewProductRequestBody, SearchData } from "./../types/type";
 import { NextFunction, Request, Response } from "express";
 import { Product } from "./../models/productModel";
 import ErrorHandler from "../utils/utilityClass";
 import { rm } from "fs";
+import { invalidateCache } from "../utils/Revalidate";
 const asyncHandler = require("express-async-handler");
 
 const getProduct = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const allProducts = await Product.find({});
+      let allProducts;
+      if (myCache.has("all-product")) {
+        allProducts = JSON.parse(myCache.get("all-product")!);
+      } else {
+        allProducts = await Product.find({});
+        myCache.set("all-product", JSON.stringify(allProducts));
+      }
       res.status(201).json({
         success: true,
         allProducts,
@@ -95,6 +102,7 @@ const createProduct = asyncHandler(
         category: category.toLowerCase(),
         photo: photo?.path,
       });
+      await invalidateCache({ product: true });
       return res.status(201).json({
         success: true,
         product: product,
@@ -112,7 +120,6 @@ const latestProducts = asyncHandler(
       if (myCache.has("latest-product")) {
         latestProduct = JSON.parse(myCache.get("latest-product")!);
       } else {
-        latestProduct = await Product.find({}).sort({ createdAt: -1 }).limit(5);
         myCache.set("latest-product", JSON.stringify(latestProduct));
       }
       return res.status(200).json({
@@ -128,7 +135,14 @@ const latestProducts = asyncHandler(
 const productCategories = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const allCategories = await Product.distinct("category");
+      let allCategories;
+      if (myCache.has("all-category")) {
+        allCategories = JSON.parse(myCache.get("all-category")!);
+      } else {
+        allCategories = await Product.distinct("category");
+        myCache.set("all-category", JSON.stringify(allCategories));
+      }
+
       return res.status(200).json({
         success: true,
         allCategories,
@@ -142,7 +156,14 @@ const productCategories = asyncHandler(
 const singleProduct = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const singleProduct = await Product.findById(req.params.id);
+      const id = req.params.id;
+      let singleProduct;
+      if (myCache.has(`product-${id}`)) {
+        singleProduct = JSON.parse(myCache.get(`product-${id}`)!);
+      } else {
+        singleProduct = await Product.findById(id);
+        myCache.set(`product-${id}`, JSON.stringify(singleProduct));
+      }
       return res.status(200).json({
         success: true,
         singleProduct,
@@ -174,7 +195,8 @@ const updateProduct = asyncHandler(
       if (stock) product.stock = stock;
       if (category) product.category = category;
 
-      await product.save({});
+      await product.save();
+      await invalidateCache({ product: true });
       return res.status(200).json({
         success: true,
         product,
@@ -198,6 +220,7 @@ const deleteProduct = asyncHandler(
         });
       }
       await product?.deleteOne();
+      await invalidateCache({ product: true });
       return res.status(200).json({
         success: true,
         message: "Deleted Product Success",
